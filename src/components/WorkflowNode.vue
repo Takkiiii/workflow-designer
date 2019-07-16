@@ -1,6 +1,6 @@
 <template>
   <div
-    class="recipe-node"
+    class="workflow-node"
     :style="nodeStyle"
     @onmousedown="onMousedown"
     @onmouseover="onMouseOver"
@@ -20,10 +20,10 @@
 <style <style lang="scss">
 $themeColor: rgb(255, 136, 85);
 $portSize: 12;
-.recipe-node {
+.workflow-node {
   margin: 0;
-  width: 80px;
-  height: 80px;
+  width: 160px;
+  height: 160px;
   position: absolute;
   box-sizing: border-box;
   border: none;
@@ -89,7 +89,7 @@ $portSize: 12;
 <script lang="ts">
 import Vue from "vue";
 export default Vue.extend({
-  name: "recipe-node",
+  name: "workflow-node",
   props: {
     id: {
       type: String,

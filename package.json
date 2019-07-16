@@ -8,7 +8,8 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "vue": "^2.6.10"
+    "vue": "^2.6.10",
+    "vuedraggable": "^2.23.0"
   },
   "devDependencies": {
     "@types/jest": "^23.1.4",
@@ -16,6 +17,7 @@
     "@vue/cli-plugin-unit-jest": "^3.9.0",
     "@vue/cli-service": "^3.9.0",
     "@vue/test-utils": "1.0.0-beta.29",
+    "braces": "^3.0.2",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",
     "ts-jest": "^23.0.0",

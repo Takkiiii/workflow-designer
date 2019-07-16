@@ -1,23 +1,23 @@
 <template>
   <div id="app">
-    <recipe-node
+    <workflow-node
       v-bind:id="node.id"
       v-bind:label="node.label"
       v-bind:x="node.x"
       v-bind:y="node.y"
       v-bind:type="node.type"
-    ></recipe-node>
+    ></workflow-node>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import RecipeNode from "./components/RecipeNode.vue";
+import WorkflowNode from "./components/WorkflowNode.vue";
 
 export default Vue.extend({
   name: "app",
   components: {
-    RecipeNode
+    WorkflowNode
   },
   data() {
     return {
@@ -27,13 +27,33 @@ export default Vue.extend({
         y: -69,
         label: "test1",
         type: "transcode"
-      }
+      },
+      action: {
+        linking: false,
+        dragging: false,
+        scrolling: false,
+        selected: 0,
+      },
+      mouse: {
+        x: 0,
+        y: 0,
+        lastX: 0,
+        lastY: 0,
+      },
+      draggingLink: {
+        mx: 0,
+        my: 0
+      },
+      rootDivOffset: {
+        top: 0,
+        left: 0
+      },
     };
   }
 });
 </script>
 
-<style>
+<style lang="scss">
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -41,5 +61,15 @@ export default Vue.extend({
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.flowchart-container {
+  margin: 0;
+  background: #ddd;
+  position: relative;
+  overflow: hidden;
+  svg {
+    cursor: grab;
+  }
 }
 </style>
