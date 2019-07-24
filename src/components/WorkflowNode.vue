@@ -1,40 +1,36 @@
 <template>
-  <div
-    class="workflow-node"
-    :style="nodeStyle"
-    @onmousedown="onMousedown"
-    @onmouseover="onMouseOver"
-    @onmouseleave="onMouseLeave"
-    v-bind:class="{selected: options.selected === id}"
-  >
-    <div class="node-port node-input" @onmousedown="onInputMouseDown" @mouseup="onInputMouseUp"></div>
-    <div class="node-main">
+  <div class="workflow-node" :style="nodeStyle" @mousedown="handleMousedown" v-bind:class="{selected: options.selected === id}">
+    <div class="node-port node-input"></div>
+    <div class="node-m1ain">
       <div v-text="type" class="node-type"></div>
       <div v-text="label" class="node-label"></div>
     </div>
-    <div class="node-port node-output" @onmousedown="onOutputMouseDown"></div>
+    <div class="node-port node-output"></div>
     <div v-show="show.delete" class="node-delete">&times;</div>
   </div>
 </template>
 
-<style <style lang="scss">
+<style scoped lang="scss">
 $themeColor: rgb(255, 136, 85);
 $portSize: 12;
+
 .workflow-node {
-  margin: 0;
-  width: 160px;
-  height: 160px;
+  padding: 0.5em 1em;
+  margin: 2em 0;
+  font-weight: bold;
+  border: solid 1px #000000;
+  width: 80px;
+  height: 80px;
   position: absolute;
   box-sizing: border-box;
-  border: none;
   background: white;
   z-index: 1;
-  opacity: .9;
+  opacity: 0.9;
+  cursor: move;
   transform-origin: top left;
   .node-main {
     text-align: center;
     .node-type {
-      cursor: move;
       background: $themeColor;
       color: white;
       font-size: 13px;
@@ -59,10 +55,10 @@ $portSize: 12;
     }
   }
   .node-input {
-    top: #{-2+$portSize/-2}px;
+    top: #{-2 + $portSize/-2}px;
   }
   .node-output {
-    bottom: #{-2+$portSize/-2}px;
+    bottom: #{-2 + $portSize/-2}px;
   }
   .node-delete {
     position: absolute;
@@ -77,75 +73,83 @@ $portSize: 12;
     border: 1px solid $themeColor;
     border-radius: 100px;
     text-align: center;
-    &:hover{
+    &:hover {
       background: $themeColor;
       color: white;
     }
   }
 }
-</style>>
-
+.selected {
+  box-shadow: 0 0 0 2px $themeColor;
+}
+</style>
 
 <script lang="ts">
-import Vue from "vue";
-export default Vue.extend({
-  name: "workflow-node",
+import Vue, { PropType } from 'vue'
+export default {
+  name: 'workflow-node',
   props: {
     id: {
       type: String,
+      default: '',
       required: true
     },
-    label: {
-      type: String,
-      required: true
-    },
-    x: {
+    pos_x: {
       type: Number,
       default: 0
     },
-    y: {
+    pos_y: {
       type: Number,
       default: 0
     },
     type: {
       type: String,
-      default: 'Default'
+      default: '',
+      required: true
+    },
+    label: {
+      type: String,
+      default: '',
+      required: true
     },
     options: {
-      type: Object,
+      type: Object as PropType<Options>,
       default: () => ({ centerX: 1024, scale: 1, centerY: 140 })
+    }
+  },
+  data () {
+    return {
+      show: { delete: false }
     }
   },
   computed: {
     nodeStyle(): Object {
       return {
-        top: this.options.centerY + this.y * this.options.scale + "px",
-        left: this.options.centerX + this.x * this.options.scale + "px",
-        transform: `scale(${this.options.scale})`
-      };
-    }
-  },
-  data() {
-    return {
-      show: {
-        delete: false,
+        top: this.$props.options.centerY + this.pos_y * this.$props.options.scale + 'px', // remove: this.options.offsetTop +
+        left: this.$props.options.centerX + this.pos_x * this.$props.options.scale + 'px', // remove: this.options.offsetLeft +
+        transform: `scale(${this.$props.options.scale})`
       }
     }
   },
+  mounted () {},
+  created () {},
   methods: {
-    onMousedown() {
-    },
-    onMouseOver() {
-    },
-    onMouseLeave() {
-    },
-    outputMouseDown() {
-    },
-    onInputMouseDown() {
-    },
-    onInputMouseUp() {
-    },
-    onOutputMouseDown() {}
+    handleMousedown(e: Event) {
+      console.log(e);
+      // const target = e.target || e.srcElement
+      // if (target.className.indexOf('node-input') < 0 && target.className.indexOf('node-output') < 0) {
+      //   this.$emit('nodeSelected', e)
+      // }
+      // e.preventDefault()
+    }
   }
-});
+}
+
+
+interface Options{
+  centerX: number
+  scale: number
+  centerY: number
+}
+
 </script>

@@ -6,6 +6,7 @@
       v-bind:x="node.x"
       v-bind:y="node.y"
       v-bind:type="node.type"
+      v-bind:options="nodeOptions"
     ></workflow-node>
   </div>
 </template>
@@ -18,6 +19,24 @@ export default Vue.extend({
   name: "app",
   components: {
     WorkflowNode
+  },
+  props: {
+    scene: {
+      type: Object,
+      default () {
+        return {
+          centerX: 1024,
+          scale: 1,
+          centerY: 140,
+          nodes: [],
+          links: []
+        }
+      }
+    },
+    height: {
+      type: Number,
+      default: 400
+    }
   },
   data() {
     return {
@@ -49,7 +68,19 @@ export default Vue.extend({
         left: 0
       },
     };
-  }
+  },
+  computed: {
+    nodeOptions(): Object {
+      return {
+        centerY: this.$props.scene.centerY,
+        centerX: this.$props.scene.centerX,
+        scale: this.$props.scene.scale,
+        offsetTop: this.rootDivOffset.top,
+        offsetLeft: this.rootDivOffset.left,
+        selected: this.action.selected
+      }
+    }
+  },
 });
 </script>
 
