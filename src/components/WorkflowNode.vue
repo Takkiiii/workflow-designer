@@ -23,7 +23,7 @@ $portSize: 12;
   height: 80px;
   position: absolute;
   box-sizing: border-box;
-  background: white;
+  background: #403f40;
   z-index: 1;
   opacity: 0.9;
   cursor: move;
