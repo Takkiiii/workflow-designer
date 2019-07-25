@@ -1,87 +1,63 @@
 <template>
   <div id="app">
-    <workflow-node
-      v-bind:id="node.id"
-      v-bind:label="node.label"
-      v-bind:x="node.x"
-      v-bind:y="node.y"
-      v-bind:type="node.type"
-      v-bind:options="nodeOptions"
-    ></workflow-node>
+    <workflow-container :scene="scene" @nodeClick="nodeClick" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import WorkflowNode from "./components/WorkflowNode.vue";
-import WorkflowContainer from './components/WorkflowContainer.vue';
+import WorkflowContainer from "./components/WorkflowContainer.vue";
 export default Vue.extend({
-  name: "app",
-  components: {
-    WorkflowNode,
-    WorkflowContainer
-  },
-  props: {
-    scene: {
-      type: Object,
-      default () {
-        return {
-          centerX: 1024,
-          scale: 1,
-          centerY: 140,
-          nodes: [],
-          links: []
-        }
-      }
-    },
-    height: {
-      type: Number,
-      default: 400
-    }
-  },
+  name: "HelloWorld",
+  components: { WorkflowContainer },
   data() {
     return {
-      node: {
-        id: "asaa",
-        x: -700,
-        y: -69,
-        label: "test1",
-        type: "transcode"
+      scene: {
+        centerX: 1024,
+        centerY: 140,
+        scale: 1,
+        nodes: [
+          {
+            id: "aaaa",
+            x: -700,
+            y: -69,
+            type: "Action",
+            label: "test1"
+          },
+          {
+            id: "bbbb",
+            x: -357,
+            y: 80,
+            type: "Script",
+            label: "test2"
+          },
+          {
+            id: "cccc",
+            x: -557,
+            y: 80,
+            type: "Rule",
+            label: "test3"
+          }
+        ],
+        links: [
+          {
+            id: 3,
+            from: 2, // node id the link start
+            to: 4 // node id the link end
+          }
+        ]
       },
-      action: {
-        linking: false,
-        dragging: false,
-        scrolling: false,
-        selected: 0,
-      },
-      mouse: {
-        x: 0,
-        y: 0,
-        lastX: 0,
-        lastY: 0,
-      },
-      draggingLink: {
-        mx: 0,
-        my: 0
-      },
-      rootDivOffset: {
-        top: 0,
-        left: 0
-      },
+      newNodeType: 0,
+      newNodeLabel: "",
+      nodeCategory: ["rule", "action", "script", "decision", "fork", "join"]
     };
   },
-  computed: {
-    nodeOptions(): Object {
-      return {
-        centerY: this.$props.scene.centerY,
-        centerX: this.$props.scene.centerX,
-        scale: this.$props.scene.scale,
-        offsetTop: this.rootDivOffset.top,
-        offsetLeft: this.rootDivOffset.left,
-        selected: this.action.selected
-      }
+  methods: {
+    nodeClick(id: any) {
+      console.log("node click", id);
     }
-  },
+  }
 });
 </script>
 
