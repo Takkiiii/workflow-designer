@@ -6,7 +6,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-import WorkflowNode from "./components/WorkflowNode.vue";
 import WorkflowContainer from "./components/WorkflowContainer.vue";
 export default Vue.extend({
   name: "HelloWorld",
@@ -54,7 +53,7 @@ export default Vue.extend({
     };
   },
   methods: {
-    nodeClick(id: any) {
+    nodeClick(id: string) : void {
       console.log("node click", id);
     }
   }
