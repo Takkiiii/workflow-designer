@@ -14,11 +14,12 @@
 <script lang="ts">
 import Vue from "vue";
 import WorkflowNode from "./components/WorkflowNode.vue";
-
+import WorkflowContainer from './components/WorkflowContainer.vue';
 export default Vue.extend({
   name: "app",
   components: {
-    WorkflowNode
+    WorkflowNode,
+    WorkflowContainer
   },
   props: {
     scene: {

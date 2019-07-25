@@ -124,7 +124,6 @@ export default {
   },
   computed: {
     nodeStyle(): Object {
-      console.log((this as any).options);
       return {
         top: (this as any).options.centerY + (this as any).pos_y * (this as any).options.scale + 'px', // remove: this.options.offsetTop +
         left: (this as any).options.centerX + (this as any).pos_x * (this as any).options.scale + 'px', // remove: this.options.offsetLeft +
