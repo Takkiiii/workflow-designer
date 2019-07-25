@@ -113,7 +113,7 @@ export default {
       required: true
     },
     options: {
-      type: Object as PropType<Options>,
+      type: Object as () => Options,
       default: () => ({ centerX: 1024, scale: 1, centerY: 140 })
     }
   },
@@ -124,10 +124,11 @@ export default {
   },
   computed: {
     nodeStyle(): Object {
+      console.log((this as any).options);
       return {
-        top: this.$props.options.centerY + this.pos_y * this.$props.options.scale + 'px', // remove: this.options.offsetTop +
-        left: this.$props.options.centerX + this.pos_x * this.$props.options.scale + 'px', // remove: this.options.offsetLeft +
-        transform: `scale(${this.$props.options.scale})`
+        top: (this as any).options.centerY + (this as any).pos_y * (this as any).options.scale + 'px', // remove: this.options.offsetTop +
+        left: (this as any).options.centerX + (this as any).pos_x * (this as any).options.scale + 'px', // remove: this.options.offsetLeft +
+        transform: `scale(${(this as any).options.scale})`
       }
     }
   },
@@ -135,18 +136,17 @@ export default {
   created () {},
   methods: {
     handleMousedown(e: Event) {
-      console.log(e);
-      // const target = e.target || e.srcElement
-      // if (target.className.indexOf('node-input') < 0 && target.className.indexOf('node-output') < 0) {
-      //   this.$emit('nodeSelected', e)
-      // }
-      // e.preventDefault()
+      const target =<Element> e.target || e.srcElement;
+      if (target.className.indexOf('node-input') < 0 && target.className.indexOf('node-output') < 0) {
+        (this as any).$emit('nodeSelected', e)
+      }
+      e.preventDefault()
     }
   }
 }
 
 
-interface Options{
+export interface Options{
   centerX: number
   scale: number
   centerY: number
