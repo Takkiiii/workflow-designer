@@ -7,6 +7,7 @@
 <script lang="ts">
 import Vue from "vue";
 import WorkflowContainer from "./components/WorkflowContainer.vue";
+import Node from './data/node';
 export default Vue.extend({
   name: "HelloWorld",
   components: { WorkflowContainer },
@@ -19,26 +20,26 @@ export default Vue.extend({
         nodes: [
           {
             id: "aaaa",
-            x: -700,
-            y: -69,
+            pos_x: -700,
+            pos_y: -69,
             type: "Action",
             label: "test1"
           },
           {
             id: "bbbb",
-            x: -357,
-            y: 80,
+            pos_x: -357,
+            pos_y: 80,
             type: "Script",
             label: "test2"
           },
           {
             id: "cccc",
-            x: -557,
-            y: 80,
+            pos_x: -557,
+            pos_y: 80,
             type: "Rule",
             label: "test3"
           }
-        ],
+        ] as Node[],
         links: [
           {
             id: 3,

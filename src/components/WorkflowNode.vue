@@ -85,7 +85,8 @@ $portSize: 12;
 </style>
 
 <script lang="ts">
-import Vue, { PropType } from 'vue'
+import Vue, { PropType } from 'vue';
+import Node from '../data/node';
 export default {
   name: 'workflow-node',
   props: {
